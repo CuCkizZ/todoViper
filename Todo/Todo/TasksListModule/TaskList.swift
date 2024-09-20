@@ -8,24 +8,12 @@
 import UIKit
 import CoreData
 
-private let titleStr = "Today's Tasks"
-private let allLabelText = "All"
-private let openLabelText = "Open"
-private let closedLabelText = "Closed"
-private let addButtonTitle = "New Task"
-private let addButtonImage = "plus"
-
-private let cellPadding = UIEdgeInsets(top: 22, left: 25, bottom: 22, right: 25)
-private let defaultButtonPadding: CGFloat = 15
-private let defaultXPadding: CGFloat = 10
-private let defaultYPadding: CGFloat = 20
-
 protocol TaskListViewProtocol: AnyObject {
     func reloadData()
     func displayTodoList()
 }
 
-final class TaskListView: UIViewController {
+final class TaskList: UIViewController {
     var presenter: TaskListPresenterProtocol?
     private let userManager = UserManager.shared
     
@@ -57,7 +45,7 @@ final class TaskListView: UIViewController {
     }
 }
 
-private extension TaskListView {
+private extension TaskList {
     func setupLayout() {
         setupView()
         setupLabel()
@@ -84,7 +72,7 @@ private extension TaskListView {
     }
     
     func setupLabel() {
-        titleLabel.text = titleStr
+        titleLabel.text = Constants.titleStr
         titleLabel.font = UIFont.systemFont(ofSize: 24, weight: UIFont.Weight.bold)
         
         dateTitleLabel.text = presenter?.dateFormatter(date: Date())
@@ -95,8 +83,8 @@ private extension TaskListView {
     func setupButton() {
         var config = UIButton.Configuration.filled()
         
-        config.title = addButtonTitle
-        config.image = UIImage(systemName: addButtonImage)?.withTintColor(.systemBlue)
+        config.title = Constants.addButtonTitle
+        config.image = UIImage(systemName: Constants.addButtonImage)?.withTintColor(.systemBlue)
         config.baseBackgroundColor = .systemBlue.withAlphaComponent(0.1)
         config.baseForegroundColor = .link
         config.imagePlacement = .leading
@@ -134,19 +122,28 @@ private extension TaskListView {
         
         
         NSLayoutConstraint.activate([
-            customSegmentControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: defaultYPadding),
-            customSegmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            customSegmentControl.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                          constant: Constants.defaultYPadding),
+            customSegmentControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                      constant: 80),
             
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: defaultXPadding),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: defaultYPadding),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                            constant: Constants.defaultXPadding),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                constant: Constants.defaultYPadding),
             
-            addButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: defaultButtonPadding),
-            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -defaultButtonPadding),
+            addButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                           constant: Constants.defaultButtonPadding),
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                constant: -Constants.defaultButtonPadding),
             
-            dateTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: defaultXPadding / 2),
-            dateTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: defaultYPadding),
+            dateTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
+                                                constant: Constants.defaultXPadding / 2),
+            dateTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                    constant: Constants.defaultYPadding),
             
-            collectionView.topAnchor.constraint(equalTo: customSegmentControl.bottomAnchor, constant: defaultXPadding),
+            collectionView.topAnchor.constraint(equalTo: customSegmentControl.bottomAnchor,
+                                                constant: Constants.defaultXPadding),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -155,7 +152,7 @@ private extension TaskListView {
     }
 }
 
-extension TaskListView: TaskListViewProtocol {
+extension TaskList: TaskListViewProtocol {
     func displayTodoList() {
         cellDataSource = presenter?.returnCellDataSource() ?? []
         collectionView.reloadData()
@@ -171,7 +168,7 @@ extension TaskListView: TaskListViewProtocol {
     
 }
 
-extension TaskListView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension TaskList: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if userManager.isFirstLoad == true {
             switch segmentedIndex {
@@ -257,7 +254,7 @@ extension TaskListView: UICollectionViewDataSource, UICollectionViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        cellPadding
+        Constants.cellPadding
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -267,7 +264,7 @@ extension TaskListView: UICollectionViewDataSource, UICollectionViewDelegate, UI
 }
 
 
-extension TaskListView: TaskListCellDelegate {
+extension TaskList: TaskListCellDelegate {
     func didTapDoneButton(in cell: TaskListCell, task: TodoEntity, isDone: Bool) {
         presenter?.taskWasDone(task: task, isDone: isDone)
         DispatchQueue.main.async { [weak self] in
@@ -277,7 +274,7 @@ extension TaskListView: TaskListCellDelegate {
     }
 }
 
-extension TaskListView: CustomSegmentControlDelegate {
+extension TaskList: CustomSegmentControlDelegate {
     func segmentControl(_ segmentControl: CustomSegmentControl, didSelectSegmentAt index: Int) {
         switch index {
         case 0:

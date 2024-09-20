@@ -15,13 +15,13 @@ protocol TodoInteractorProtocol {
     func returnGroups() -> [String]
 }
 
-final class TodoInteractor {
+final class EditTodoInteractor {
     var presenter: TodoPresenterProtocol?
     let coreManager = CoreManager.shared
     private var fetchedResultController: NSFetchedResultsController<TodoEntity>?
 }
 
-extension TodoInteractor: TodoInteractorProtocol {
+extension EditTodoInteractor: TodoInteractorProtocol {
     func fetchData() {
         setupFetchedResultsController()
         presenter?.dataFetched()

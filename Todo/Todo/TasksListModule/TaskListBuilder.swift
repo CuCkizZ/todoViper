@@ -8,9 +8,9 @@
 import UIKit
 import CoreData
 
-class TaskListBuilder {
+final class TaskListBuilder {
     static func createTaskList() -> UIViewController {
-        let view = TaskListView()
+        let view = TaskList()
         let interactor = TaskListInteractor()
         let networkManager = NetworkManager()
         let presenter = TaskListPresenter()

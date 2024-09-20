@@ -18,7 +18,7 @@ final class TaskListRouter {
 
 extension TaskListRouter: TaskListRouterProtocol {
     func presentConfigureTodo(model: TodoEntity) {
-        let todoView = TodoBuilder.createTodoWithConfugire(model: model)
+        let todoView = EditTodoBuilder.createTodoWithConfugire(model: model)
         if let sheet = todoView.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.preferredCornerRadius = 16
@@ -28,7 +28,7 @@ extension TaskListRouter: TaskListRouterProtocol {
     }
     
     func presentTodo() {
-        let todoView = TodoBuilder.createTodo()
+        let todoView = EditTodoBuilder.createTodo()
         if let sheet = todoView.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.preferredCornerRadius = 16

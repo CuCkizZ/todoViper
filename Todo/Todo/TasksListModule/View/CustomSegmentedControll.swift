@@ -7,10 +7,6 @@
 
 import UIKit
 
-private let alltitle = "All"
-private let openTitle = "Open"
-private let closeTitle = "Closed"
-
 protocol CustomSegmentControlDelegate: AnyObject {
     func segmentControl(_ segmentControl: CustomSegmentControl, didSelectSegmentAt index: Int)
 }
@@ -43,17 +39,17 @@ final class CustomSegmentControl: UIView {
         openCount = newOpenCount
         closeCount = newCloseCount
         
-        allButton.setTitle("\(alltitle) \(allCount)", for: .normal)
-        openButton.setTitle("\(openTitle) \(openCount)", for: .normal)
-        closedButton.setTitle("\(closeTitle) \(closeCount)", for: .normal)
+        allButton.setTitle("\(Constants.allLabel) \(allCount)", for: .normal)
+        openButton.setTitle("\(Constants.openLabel) \(openCount)", for: .normal)
+        closedButton.setTitle("\(Constants.closedLabel) \(closeCount)", for: .normal)
     }
 }
 
 private extension CustomSegmentControl {
     func setupView() {
-        configureButton(allButton, title: "\(alltitle) \(allCount)", isSelected: true)
-        configureButton(openButton, title: "\(openTitle) \(openCount)", isSelected: false)
-        configureButton(closedButton, title: "\(closeTitle) \(closeCount)", isSelected: false)
+        configureButton(allButton, title: "\(Constants.allLabel) \(allCount)", isSelected: true)
+        configureButton(openButton, title: "\(Constants.openLabel) \(openCount)", isSelected: false)
+        configureButton(closedButton, title: "\(Constants.closedLabel) \(closeCount)", isSelected: false)
         
         separatorLine.backgroundColor = .systemGray4
         let stackView = UIStackView(arrangedSubviews: [allButton, separatorLine, openButton, closedButton])

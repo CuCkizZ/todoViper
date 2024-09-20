@@ -10,46 +10,46 @@ import XCTest
 
 class TodoRouterBuilderTest: XCTestCase {
     func testCreateTodo() {
-        let viewController = TodoBuilder.createTodo()
+        let viewController = EditTodoBuilder.createTodo()
 
-        XCTAssertTrue(viewController is TodoView)
+        XCTAssertTrue(viewController is EditTodo)
 
-        guard let view = viewController as? TodoView else {
+        guard let view = viewController as? EditTodo else {
             XCTFail("View error")
             return
         }
 
         XCTAssertNotNil(view.presenter)
-        XCTAssertTrue(view.presenter is TodoPresenter)
+        XCTAssertTrue(view.presenter is EditTodoPresenter)
 
-        guard let presenter = view.presenter as? TodoPresenter else {
+        guard let presenter = view.presenter as? EditTodoPresenter else {
             XCTFail("Presenter error")
             return
         }
 
         XCTAssertNotNil(presenter.view)
-        XCTAssertTrue(presenter.view is TodoView)
+        XCTAssertTrue(presenter.view is EditTodo)
 
         XCTAssertNotNil(presenter.interactor)
-        XCTAssertTrue(presenter.interactor is TodoInteractor)
+        XCTAssertTrue(presenter.interactor is EditTodoInteractor)
 
-        guard let interactor = presenter.interactor as? TodoInteractor else {
+        guard let interactor = presenter.interactor as? EditTodoInteractor else {
             XCTFail("Interactor error")
             return
         }
 
         XCTAssertNotNil(interactor.presenter)
-        XCTAssertTrue(interactor.presenter is TodoPresenter)
+        XCTAssertTrue(interactor.presenter is EditTodoPresenter)
 
         XCTAssertNotNil(presenter.router)
-        XCTAssertTrue(presenter.router is TodoRouter)
+        XCTAssertTrue(presenter.router is EditTodoRouter)
 
-        guard let router = presenter.router as? TodoRouter else {
+        guard let router = presenter.router as? EditTodoRouter else {
             XCTFail("Router error")
             return
         }
 
         XCTAssertNotNil(router.view)
-        XCTAssertTrue(router.view is TodoView)
+        XCTAssertTrue(router.view is EditTodo)
     }
 }

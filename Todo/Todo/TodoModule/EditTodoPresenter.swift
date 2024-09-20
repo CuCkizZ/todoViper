@@ -17,13 +17,13 @@ protocol TodoPresenterProtocol {
     func returnGroups() -> [String]
 }
 
-final class TodoPresenter {
+final class EditTodoPresenter {
     weak var view: TodoViewProtocol?
     var interactor: TodoInteractorProtocol?
     var router: TodoRouterProtocol?
 }
 
-extension TodoPresenter: TodoPresenterProtocol {
+extension EditTodoPresenter: TodoPresenterProtocol {
     func saveNewTodo(name: String, group: String, date: Date, fromTime: Date, toTime: Date, comleted: Bool = false) {
         interactor?.saveNewTodo(name: name,
                                 group: group,

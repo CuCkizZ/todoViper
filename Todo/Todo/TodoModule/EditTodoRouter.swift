@@ -11,11 +11,11 @@ protocol TodoRouterProtocol {
     func dismiss()
 }
 
-final class TodoRouter {
+final class EditTodoRouter {
     weak var view: UIViewController?
 }
 
-extension TodoRouter: TodoRouterProtocol {
+extension EditTodoRouter: TodoRouterProtocol {
     func dismiss() {
         guard let view = view else { return }
         view.dismiss(animated: true) {

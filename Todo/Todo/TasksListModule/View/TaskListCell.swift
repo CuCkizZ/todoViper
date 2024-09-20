@@ -7,18 +7,6 @@
 
 import UIKit
 
-private let doneImage = "checkmark.circle.fill"
-private let defaultImage = "circle"
-private let dayToday = "Today"
-private let dateFormat = "EEEE, dd MMMM"
-private let timeFormat = "h:mm a"
-
-private let defaultPadding: CGFloat = 16
-private let defaultTopPadding: CGFloat = 10
-private let defaultBottomPadding: CGFloat = 23
-private let defaultTextSize: CGFloat = 16
-private let dateTextSize: CGFloat = 14
-
 protocol TaskListCellDelegate: AnyObject {
     func didTapDoneButton(in cell: TaskListCell, task: TodoEntity, isDone: Bool)
 }
@@ -36,7 +24,8 @@ final class TaskListCell: UICollectionViewCell {
     private lazy var doneTaskButton = UIButton(type: .system)
     var isDone: Bool = false {
         didSet {
-            let image = isDone ? UIImage(systemName: doneImage) : UIImage(systemName: defaultImage)
+            let image = isDone ? UIImage(systemName: CellConstants.doneImage) :
+            UIImage(systemName:CellConstants.defaultImage)
             doneTaskButton.setImage(image, for: .normal)
         }
     }
@@ -64,7 +53,7 @@ final class TaskListCell: UICollectionViewCell {
         
         if let todoDate = model.date {
             if isToday(todoDate) {
-                dateTaskLabel.text = dayToday
+                dateTaskLabel.text = CellConstants.dayToday
             } else {
                 dateTaskLabel.text = dateFormatter(date: todoDate)
             }
@@ -100,12 +89,12 @@ private extension TaskListCell {
     
     func setupLabels() {
         headerTaskLabel.numberOfLines = 2
-        headerTaskLabel.font = UIFont.systemFont(ofSize: defaultTextSize + 4)
-        detailtTaskLabel.font = UIFont.systemFont(ofSize: defaultTextSize, weight: UIFont.Weight.bold)
+        headerTaskLabel.font = UIFont.systemFont(ofSize: CellConstants.defaultTextSize + 4)
+        detailtTaskLabel.font = UIFont.systemFont(ofSize: CellConstants.defaultTextSize, weight: UIFont.Weight.bold)
         detailtTaskLabel.textColor = .systemGray
-        dateTaskLabel.font = UIFont.systemFont(ofSize: dateTextSize, weight: UIFont.Weight.regular)
+        dateTaskLabel.font = UIFont.systemFont(ofSize: CellConstants.dateTextSize, weight: UIFont.Weight.regular)
         dateTaskLabel.textColor = .systemGray
-        timeTaskLabel.font = UIFont.systemFont(ofSize: dateTextSize, weight: UIFont.Weight.regular)
+        timeTaskLabel.font = UIFont.systemFont(ofSize:CellConstants.dateTextSize, weight: UIFont.Weight.regular)
         timeTaskLabel.textColor = .systemGray4
     }
     
@@ -154,13 +143,13 @@ private extension TaskListCell {
     
     func dateFormatter(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
+        dateFormatter.dateFormat = CellConstants.dateFormat
         return dateFormatter.string(from: date)
     }
     
     func timeFormatter(time: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = timeFormat
+        dateFormatter.dateFormat = CellConstants.timeFormat
         return dateFormatter.string(from: time)
     }
     
@@ -174,25 +163,28 @@ private extension TaskListCell {
         
         NSLayoutConstraint.activate([
             headerTaskLabel.widthAnchor.constraint(equalToConstant: contentView.bounds.width / 1.1),
-            headerTaskLabel.topAnchor.constraint(equalTo: topAnchor, constant: defaultTopPadding),
-            headerTaskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: defaultPadding),
+            headerTaskLabel.topAnchor.constraint(equalTo: topAnchor, constant: CellConstants.defaultTopPadding),
+            headerTaskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CellConstants.defaultPadding),
             
-            detailtTaskLabel.topAnchor.constraint(equalTo: headerTaskLabel.bottomAnchor, constant: defaultTopPadding / 2),
-            detailtTaskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: defaultPadding),
+            detailtTaskLabel.topAnchor.constraint(equalTo: headerTaskLabel.bottomAnchor,
+                                                  constant: CellConstants.defaultTopPadding / 2),
+            detailtTaskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant:CellConstants.defaultPadding),
 
-            separatorView.topAnchor.constraint(equalTo: headerTaskLabel.bottomAnchor, constant: defaultPadding * 3.5),
+            separatorView.topAnchor.constraint(equalTo: headerTaskLabel.bottomAnchor,
+                                               constant: CellConstants.defaultPadding * 3.5),
             separatorView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             separatorView.heightAnchor.constraint(equalToConstant: 1),
-            separatorView.widthAnchor.constraint(equalToConstant: contentView.bounds.width - defaultPadding * 2),
+            separatorView.widthAnchor.constraint(equalToConstant: contentView.bounds.width - CellConstants.defaultPadding * 2),
             
-            dateTaskLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -defaultBottomPadding),
-            dateTaskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: defaultPadding),
+            dateTaskLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -CellConstants.defaultBottomPadding),
+            dateTaskLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CellConstants.defaultPadding),
             
-            timeTaskLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -defaultBottomPadding),
-            timeTaskLabel.leadingAnchor.constraint(equalTo: dateTaskLabel.trailingAnchor, constant: defaultTopPadding / 2),
+            timeTaskLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -CellConstants.defaultBottomPadding),
+            timeTaskLabel.leadingAnchor.constraint(equalTo: dateTaskLabel.trailingAnchor,
+                                                   constant: CellConstants.defaultTopPadding / 2),
             
-            doneTaskButton.topAnchor.constraint(equalTo: topAnchor, constant: defaultTopPadding),
-            doneTaskButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -defaultTopPadding)
+            doneTaskButton.topAnchor.constraint(equalTo: topAnchor, constant: CellConstants.defaultTopPadding),
+            doneTaskButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -CellConstants.defaultTopPadding)
         ])
     }
 }

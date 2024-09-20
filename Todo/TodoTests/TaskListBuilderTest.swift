@@ -12,9 +12,9 @@ class TaskListBuilderTests: XCTestCase {
     func testCreateTaskList() {
         let viewController = TaskListBuilder.createTaskList()
 
-        XCTAssertTrue(viewController is TaskListView)
+        XCTAssertTrue(viewController is TaskList)
 
-        guard let view = viewController as? TaskListView else {
+        guard let view = viewController as? TaskList else {
             XCTFail("View error")
             return
         }
@@ -28,7 +28,7 @@ class TaskListBuilderTests: XCTestCase {
         }
 
         XCTAssertNotNil(presenter.view)
-        XCTAssertTrue(presenter.view is TaskListView)
+        XCTAssertTrue(presenter.view is TaskList)
 
         XCTAssertNotNil(presenter.interactor)
         XCTAssertTrue(presenter.interactor is TaskListInteractor)
@@ -53,6 +53,6 @@ class TaskListBuilderTests: XCTestCase {
         }
 
         XCTAssertNotNil(router.view)
-        XCTAssertTrue(router.view is TaskListView)
+        XCTAssertTrue(router.view is TaskList)
     }
 }

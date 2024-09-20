@@ -17,7 +17,7 @@ protocol TodoViewProtocol: AnyObject {
     func groupsFetched()
 }
 
-final class TodoView: UIViewController {
+final class EditTodo: UIViewController {
     var presenter: TodoPresenterProtocol?
     var userManager = UserManager.shared
     var model: TodoEntity?
@@ -89,7 +89,7 @@ final class TodoView: UIViewController {
     }
 }
 
-private extension TodoView {
+private extension EditTodo {
     func setupLayout() {
         setupView()
         setupTextFields()
@@ -177,9 +177,7 @@ private extension TodoView {
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stackView.widthAnchor.constraint(equalToConstant: 300),
-           // stackView.heightAnchor.constraint(equalToConstant: 300),
-            
-//            todoTextField.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 16),
+
             todoTextField.widthAnchor.constraint(equalToConstant: 270),
             todoTextField.heightAnchor.constraint(equalToConstant: 30),
             groupTextField.widthAnchor.constraint(equalToConstant: 270),
@@ -189,7 +187,7 @@ private extension TodoView {
     
 }
 
-extension TodoView: TodoViewProtocol {
+extension EditTodo: TodoViewProtocol {
     func groupsFetched() {
         
     }

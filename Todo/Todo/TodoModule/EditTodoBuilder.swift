@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class TodoBuilder {
-    static func createTodoWithConfugire(model: TodoEntity) -> TodoView {
-        let view = TodoView()
-        let interactor = TodoInteractor()
-        let presenter = TodoPresenter()
-        let router = TodoRouter()
+final class EditTodoBuilder {
+    static func createTodoWithConfugire(model: TodoEntity) -> EditTodo {
+        let view = EditTodo()
+        let interactor = EditTodoInteractor()
+        let presenter = EditTodoPresenter()
+        let router = EditTodoRouter()
         view.configuration(model: model)
         view.presenter = presenter
         interactor.presenter = presenter
@@ -24,11 +24,11 @@ final class TodoBuilder {
         return view
     }
     
-    static func createTodo() -> TodoView {
-        let view = TodoView()
-        let interactor = TodoInteractor()
-        let presenter = TodoPresenter()
-        let router = TodoRouter()
+    static func createTodo() -> EditTodo {
+        let view = EditTodo()
+        let interactor = EditTodoInteractor()
+        let presenter = EditTodoPresenter()
+        let router = EditTodoRouter()
         view.presenter = presenter
         interactor.presenter = presenter
         presenter.view = view

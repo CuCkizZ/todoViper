@@ -82,6 +82,10 @@ extension TaskListInteractor: TaskListInteractorProtocol {
     
     func didFetchTasks(with result: [CellDataModel]) {
         presenter?.onlineDataFetched(model: result)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: { [weak self] in
+            guard let self = self else { return }
+            self.userManager.isFirstLoad = false
+        })
     }
     
     func didDataFetched() {
